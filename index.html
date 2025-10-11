@@ -225,6 +225,47 @@
             background: #81c784;
         }
 
+        .footer {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 25px;
+            margin-top: 30px;
+            border: 3px solid #66bb6a;
+        }
+
+        .footer-description {
+            text-align: center;
+            color: #1b5e20;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .footer-credits {
+            text-align: center;
+            color: #666;
+            font-size: 0.85rem;
+            padding-top: 15px;
+            border-top: 2px solid #e8f5e9;
+        }
+
+        .footer-credits p {
+            margin-bottom: 8px;
+        }
+
+        .footer-credits a {
+            color: #2e7d32;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .footer-credits a:hover {
+            color: #1b5e20;
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 2rem;
@@ -254,6 +295,20 @@
             <div id="step-content"></div>
         </div>
         <div class="buttons" id="navigation-buttons"></div>
+
+        <div class="footer">
+            <div class="footer-description">
+                <p><strong>Marco Polo Noodle Bar</strong> is a digital celebration of culinary fusion, where Italian and Southeast Asian flavors meet in creative harmony. Inspired by the legendary explorer's journey along the Silk Road, this interactive experience invites you to craft your own unique dish—a delicious blend of tradition and innovation.</p>
+            </div>
+            <div class="footer-credits">
+                <p><strong>Created by:</strong></p>
+                <p>
+                    <a href="https://author1.com" target="_blank">Author Name 1</a> • 
+                    <a href="https://author2.com" target="_blank">Author Name 2</a> • 
+                    <a href="https://author3.com" target="_blank">Author Name 3</a>
+                </p>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -272,14 +327,14 @@
         let authorName = '';
         let imageGenerationComplete = false;
         let poem = [
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
-            " ",
+            "East meets West in harmony's embrace,",
+            "Where ancient trails meet modern grace.",
+            "Choose your path through silk and spice,",
+            "Each strand a story, every choice precise.",
+            "Toppings dance like stars above,",
+            "A fusion feast, crafted with love.",
+            "Your creation, bold and new—",
+            "A culinary bridge between worlds and you."
         ];
 
         // Load poem from external file if available
