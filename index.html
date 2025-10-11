@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marco Polo Noodle Bar - Digital Edition</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: #2e7d32;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .header p {
+            color: #1b5e20;
+            font-size: 1.1rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 3px solid #66bb6a;
+        }
+
+        .step-title {
+            font-size: 1.8rem;
+            color: #2e7d32;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .step-subtitle {
+            text-align: center;
+            color: #1b5e20;
+            margin-bottom: 20px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            padding: 15px;
+            border: 3px solid #a5d6a7;
+            background: white;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            min-height: 120px;
+        }
+
+        .option-btn:hover {
+            border-color: #66bb6a;
+            transform: translateY(-2px);
+        }
+
+        .option-btn.selected {
+            border-color: #2e7d32;
+            background: #e8f5e9;
+            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+        }
+
+        .option-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .option-btn img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+        }
+
+        .option-text {
+            text-align: center;
+            color: #1b5e20;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #43a047;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #2e7d32;
+        }
+
+        .btn-primary:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+        }
+
+        .btn-secondary {
+            background: #a5d6a7;
+            color: #1b5e20;
+        }
+
+        .btn-secondary:hover {
+            background: #81c784;
+        }
+
+        #result-canvas {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin: 20px auto;
+            display: block;
+            aspect-ratio: 1080 / 1350;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-section label {
+            display: block;
+            color: #1b5e20;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #a5d6a7;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: vertical;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #66bb6a;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .action-btn {
+            padding: 15px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download {
+            background: #2e7d32;
+            color: white;
+        }
+
+        .btn-download:hover {
+            background: #1b5e20;
+        }
+
+        .btn-reset {
+            background: #a5d6a7;
+            color: #1b5e20;
+        }
+
+        .btn-reset:hover {
+            background: #81c784;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .option-btn {
+                min-height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🍜 Marco Polo Noodle Bar</h1>
+            <p>Digital Fusion Experience</p>
+        </div>
+
+        <div class="card">
+            <div id="step-content"></div>
+        </div>
+        <div class="buttons" id="navigation-buttons"></div>
+    </div>
+
+    <script>
+        const bases = ['Bolognese', 'Cabonara', 'Coconut curry', 'Garlic butter', 'Oyster', 'Sesame soy', 'Soy', 'Tom yum', 'Tomato', 'pesto'];
+        const noodles = ['Bucketwheat', 'Capelinni', 'Fetucinne', 'Lasagna', 'Linguine', 'Penne', 'Soba', 'Somen', 'Tagliatelle', 'Udon'];
+        const toppings = ['Basil', 'Bell peppers', 'Chilli oil', 'Fresh mozarella', 'Lemon wedge and zest', 'Mushrooms', 'Nori', 'Red chilli', 'Scallions', 'Tofu'];
+
+        let currentStep = 0;
+        let selections = {
+            base: null,
+            noodle: null,
+            toppings: []
+        };
+        let dishName = '';
+        let userNote = '';
+        let authorName = '';
+        let imageGenerationComplete = false;
+
+        function getImagePath(type, name) {
+            const typeMap = {
+                base: 'Bases',
+                noodle: 'Noodles',
+                topping: 'Toppings'
+            };
+            return `Food Festival/${typeMap[type]}/${name}.png`;
+        }
+
+        function selectOption(type, value) {
+            if (type === 'topping') {
+                const index = selections.toppings.indexOf(value);
+                if (index > -1) {
+                    selections.toppings.splice(index, 1);
+                } else if (selections.toppings.length < 3) {
+                    selections.toppings.push(value);
+                }
+            } else {
+                selections[type] = value;
+            }
+            renderStep();
+        }
+
+        function renderStep() {
+            const content = document.getElementById('step-content');
+            const buttons = document.getElementById('navigation-buttons');
+
+            if (currentStep === 0) {
+                content.innerHTML = `
+                    <h2 class="step-title">Choose Your Base</h2>
+                    <div class="options-grid">
+                        ${bases.map(base => `
+                            <button class="option-btn ${selections.base === base ? 'selected' : ''}" 
+                                    onclick="selectOption('base', '${base}')">
+                                <img src="${getImagePath('base', base)}" alt="${base}" 
+                                     onerror="this.style.display='none'">
+                                <div class="option-text">${base}</div>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                buttons.innerHTML = `
+                    <button class="btn btn-primary" 
+                            ${!selections.base ? 'disabled' : ''} 
+                            onclick="nextStep()">
+                        Next
+                    </button>
+                `;
+            } else if (currentStep === 1) {
+                content.innerHTML = `
+                    <h2 class="step-title">Choose Your Noodles</h2>
+                    <div class="options-grid">
+                        ${noodles.map(noodle => `
+                            <button class="option-btn ${selections.noodle === noodle ? 'selected' : ''}" 
+                                    onclick="selectOption('noodle', '${noodle}')">
+                                <img src="${getImagePath('noodle', noodle)}" alt="${noodle}"
+                                     onerror="this.style.display='none'">
+                                <div class="option-text">${noodle}</div>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                buttons.innerHTML = `
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" 
+                            ${!selections.noodle ? 'disabled' : ''} 
+                            onclick="nextStep()">
+                        Next
+                    </button>
+                `;
+            } else if (currentStep === 2) {
+                content.innerHTML = `
+                    <h2 class="step-title">Choose Your Toppings</h2>
+                    <p class="step-subtitle">Select up to 3 toppings (${selections.toppings.length}/3)</p>
+                    <div class="options-grid">
+                        ${toppings.map(topping => `
+                            <button class="option-btn ${selections.toppings.includes(topping) ? 'selected' : ''} 
+                                    ${!selections.toppings.includes(topping) && selections.toppings.length >= 3 ? 'disabled' : ''}" 
+                                    onclick="selectOption('topping', '${topping}')"
+                                    ${!selections.toppings.includes(topping) && selections.toppings.length >= 3 ? 'disabled' : ''}>
+                                <img src="${getImagePath('topping', topping)}" alt="${topping}"
+                                     onerror="this.style.display='none'">
+                                <div class="option-text">${topping}</div>
+                            </button>
+                        `).join('')}
+                    </div>
+                `;
+                buttons.innerHTML = `
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" 
+                            ${selections.toppings.length === 0 ? 'disabled' : ''} 
+                            onclick="nextStep()">
+                        Next
+                    </button>
+                `;
+            } else if (currentStep === 3) {
+                content.innerHTML = `
+                    <h2 class="step-title">Name Your Dish</h2>
+                    <div class="input-section">
+                        <label>Your Name *</label>
+                        <input type="text" id="author-name-input" placeholder="e.g., Maria" 
+                               value="${authorName}" maxlength="30">
+                    </div>
+                    <div class="input-section">
+                        <label>Dish Name *</label>
+                        <input type="text" id="dish-name-input" placeholder="e.g., Spicy Fusion Delight" 
+                               value="${dishName}" maxlength="50">
+                    </div>
+                    <div class="input-section">
+                        <label>Your Story (optional)</label>
+                        <textarea id="user-note-input" placeholder="Why did you choose this combination?" 
+                                  rows="3" maxlength="200">${userNote}</textarea>
+                    </div>
+                `;
+                buttons.innerHTML = `
+                    <button class="btn btn-secondary" onclick="prevStep()">Back</button>
+                    <button class="btn btn-primary" onclick="createDish()">
+                        Create My Dish!
+                    </button>
+                `;
+            } else if (currentStep === 4) {
+                content.innerHTML = `
+                    <h2 class="step-title" style="color: #2e7d32; margin-bottom: 10px;">${dishName}</h2>
+                    ${userNote ? `<p style="text-align: center; color: #1b5e20; margin-bottom: 20px; font-style: italic;">"${userNote}"</p>` : ''}
+                    <div id="loading-message" style="text-align: center; padding: 20px;">
+                        <p style="color: #666; font-size: 1.1rem;">⏳ Generating your dish...</p>
+                    </div>
+                    <canvas id="result-canvas" width="1080" height="1350" style="opacity: 0; transition: opacity 0.5s;"></canvas>
+                    <div class="action-buttons" id="action-buttons-container" style="opacity: 0; transition: opacity 0.5s;">
+                        <button class="action-btn btn-download" onclick="downloadDish()" id="download-btn">
+                            ⬇️ Download Image
+                        </button>
+                        <button class="action-btn btn-reset" onclick="reset()">
+                            🔄 Create Another
+                        </button>
+                    </div>
+                `;
+                buttons.innerHTML = '';
+                setTimeout(() => generateDishImage(), 100);
+            }
+        }
+
+        function nextStep() {
+            if (currentStep === 3) {
+                const authorInput = document.getElementById('author-name-input');
+                const nameInput = document.getElementById('dish-name-input');
+                const noteInput = document.getElementById('user-note-input');
+                
+                authorName = authorInput.value.trim();
+                dishName = nameInput.value.trim();
+                userNote = noteInput.value.trim();
+                
+                if (!authorName) {
+                    alert('Please enter your name!');
+                    authorInput.focus();
+                    return;
+                }
+                
+                if (!dishName) {
+                    alert('Please enter a name for your dish!');
+                    nameInput.focus();
+                    return;
+                }
+            }
+            
+            if (currentStep < 4) {
+                currentStep++;
+                renderStep();
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 0) {
+                currentStep--;
+                renderStep();
+            }
+        }
+
+        function createDish() {
+            nextStep();
+        }
+
+        function generateDishImage() {
+            const canvas = document.getElementById('result-canvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            canvas.width = 1080;
+            canvas.height = 1350;
+            
+            imageGenerationComplete = false;
+            
+            // Fill white background
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            const foodAreaHeight = 1024;
+            const textAreaTop = foodAreaHeight + 20;
+
+            const sizes = { base: 0.80, noodle: 0.60, topping: 0.35 };
+            
+            // Spread toppings around the dish in different positions
+            const offsets = [
+                { x: -100, y: -80 },   // Top left
+                { x: 100, y: -60 },    // Top right
+                { x: 0, y: 90 }        // Bottom center
+            ];
+
+            const loadAndDraw = (src, scale, offsetX = 0, offsetY = 0) => {
+                return new Promise((resolve) => {
+                    const img = new Image();
+                    img.onload = () => {
+                        const newSize = foodAreaHeight * scale;
+                        const x = (canvas.width - newSize) / 2 + offsetX;
+                        const y = (foodAreaHeight - newSize) / 2 + offsetY;
+                        ctx.drawImage(img, x, y, newSize, newSize);
+                        console.log('Successfully loaded:', src);
+                        resolve();
+                    };
+                    img.onerror = (e) => {
+                        console.error('Failed to load image:', src, e);
+                        resolve();
+                    };
+                    img.src = src;
+                });
+            };
+
+            const drawText = () => {
+                const padding = 40;
+                let currentY = textAreaTop;
+
+                // Dish name
+                ctx.fillStyle = '#2e7d32';
+                ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText(dishName, canvas.width / 2, currentY);
+                currentY += 60;
+
+                // Author name
+                ctx.fillStyle = '#1b5e20';
+                ctx.font = '32px "Segoe UI", Arial, sans-serif';
+                ctx.fillText(`by ${authorName}`, canvas.width / 2, currentY);
+                currentY += 50;
+
+                // Story (if exists)
+                if (userNote) {
+                    ctx.fillStyle = '#555555';
+                    ctx.font = 'italic 24px "Segoe UI", Arial, sans-serif';
+                    
+                    // Word wrap for story
+                    const maxWidth = canvas.width - (padding * 2);
+                    const words = userNote.split(' ');
+                    let line = '';
+                    
+                    for (let i = 0; i < words.length; i++) {
+                        const testLine = line + words[i] + ' ';
+                        const metrics = ctx.measureText(testLine);
+                        
+                        if (metrics.width > maxWidth && i > 0) {
+                            ctx.fillText(line, canvas.width / 2, currentY);
+                            line = words[i] + ' ';
+                            currentY += 32;
+                        } else {
+                            line = testLine;
+                        }
+                    }
+                    ctx.fillText(line, canvas.width / 2, currentY);
+                    currentY += 40;
+                }
+
+                // Footer
+                ctx.fillStyle = '#81c784';
+                ctx.font = '20px "Segoe UI", Arial, sans-serif';
+                ctx.fillText('🍜 Marco Polo Noodle Bar', canvas.width / 2, canvas.height - 30);
+            };
+
+            const finishGeneration = () => {
+                console.log('Image generation complete!');
+                imageGenerationComplete = true;
+                
+                // Hide loading message
+                const loadingMsg = document.getElementById('loading-message');
+                if (loadingMsg) {
+                    loadingMsg.style.display = 'none';
+                }
+                
+                // Show canvas with fade in
+                canvas.style.opacity = '1';
+                
+                // Show buttons with fade in
+                const buttonsContainer = document.getElementById('action-buttons-container');
+                if (buttonsContainer) {
+                    buttonsContainer.style.opacity = '1';
+                }
+            };
+
+            (async () => {
+                console.log('Starting image generation...');
+                console.log('Selected base:', selections.base);
+                console.log('Selected noodle:', selections.noodle);
+                console.log('Selected toppings:', selections.toppings);
+                
+                // Layer 1: Bowl with base
+                await loadAndDraw(getImagePath('base', selections.base), sizes.base);
+                
+                // Layer 2: Noodles
+                await loadAndDraw(getImagePath('noodle', selections.noodle), sizes.noodle);
+                
+                // Layer 3+: Toppings (spread around)
+                for (let i = 0; i < selections.toppings.length; i++) {
+                    const offset = offsets[i] || { x: 0, y: 0 };
+                    await loadAndDraw(
+                        getImagePath('topping', selections.toppings[i]),
+                        sizes.topping,
+                        offset.x,
+                        offset.y
+                    );
+                }
+                
+                // Draw text after all images are loaded
+                console.log('All images loaded, drawing text...');
+                drawText();
+                
+                // Wait a bit more for text rendering
+                setTimeout(finishGeneration, 500);
+            })();
+        }
+
+        function downloadDish() {
+            const canvas = document.getElementById('result-canvas');
+            if (!canvas) {
+                alert('Canvas not found! Please try creating your dish again.');
+                return;
+            }
+
+            if (!imageGenerationComplete) {
+                alert('⏳ Please wait for your dish to finish generating!');
+                return;
+            }
+
+            const fileName = `${dishName.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_${Date.now()}.png`;
+
+            try {
+                // For local files, use toDataURL (most reliable for file:// protocol)
+                const dataURL = canvas.toDataURL('image/png');
+                
+                // Check if canvas has actual content
+                if (!dataURL || dataURL === 'data:,' || dataURL === 'data:image/png;base64,') {
+                    throw new Error('Canvas appears to be empty');
+                }
+                
+                // Create a temporary link and click it
+                const link = document.createElement('a');
+                link.href = dataURL;
+                link.download = fileName;
+                
+                // For better compatibility, especially on mobile
+                link.style.display = 'none';
+                document.body.appendChild(link);
+                
+                // Some browsers need a small delay
+                setTimeout(() => {
+                    link.click();
+                    
+                    // Cleanup
+                    setTimeout(() => {
+                        document.body.removeChild(link);
+                    }, 100);
+                    
+                    // Show success message
+                    alert('✅ Image downloaded!\n\n' +
+                          'Check your Downloads folder for:\n' +
+                          fileName + '\n\n' +
+                          'Upload it to the event Padlet gallery!');
+                }, 10);
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                
+                // Try blob method as fallback
+                try {
+                    canvas.toBlob((blob) => {
+                        if (!blob) {
+                            showScreenshotInstructions();
+                            return;
+                        }
+                        
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = url;
+                        link.download = fileName;
+                        link.style.display = 'none';
+                        document.body.appendChild(link);
+                        link.click();
+                        
+                        setTimeout(() => {
+                            document.body.removeChild(link);
+                            URL.revokeObjectURL(url);
+                        }, 100);
+                        
+                        alert('✅ Image downloaded! Check your Downloads folder.');
+                    }, 'image/png');
+                } catch (blobError) {
+                    console.error('Blob method also failed:', blobError);
+                    showScreenshotInstructions();
+                }
+            }
+        }
+
+        function showScreenshotInstructions() {
+            const message = '⚠️ Automatic download is not working.\n\n' +
+                          'SOLUTION: Right-click (or long-press) on the dish image above and select:\n' +
+                          '• "Save Image As..." or\n' +
+                          '• "Download Image" or\n' +
+                          '• Take a screenshot:\n\n' +
+                          '📱 iPhone: Side Button + Volume Up\n' +
+                          '📱 Android: Power + Volume Down\n' +
+                          '💻 Windows: Win + Shift + S\n' +
+                          '💻 Mac: Cmd + Shift + 4\n\n' +
+                          'Then upload to the event gallery!';
+            alert(message);
+        }
+
+        function reset() {
+            currentStep = 0;
+            selections = { base: null, noodle: null, toppings: [] };
+            dishName = '';
+            userNote = '';
+            authorName = '';
+            imageGenerationComplete = false;
+            renderStep();
+        }
+
+        // Initialize
+        renderStep();
+    </script>
+</body>
+</html>
