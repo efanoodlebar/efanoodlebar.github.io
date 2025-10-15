@@ -694,6 +694,9 @@
                 console.log('Selected noodle:', selections.noodle);
                 console.log('Selected toppings:', selections.toppings);
                 
+                // Layer 0: Background plate
+                await loadAndDraw('Food Festival/background.png', 0.85);
+                
                 // Layer 1: Bowl with base
                 await loadAndDraw(getImagePath('base', selections.base), sizes.base);
                 
