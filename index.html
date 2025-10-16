@@ -6,7 +6,7 @@
     <title>Marco Polo Noodle Bar - Digital Edition</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Gravitas+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,7 +15,7 @@
         }
 
         body {
-            font-family: 'Lato', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #f5e6d3 0%, #e8d4b8 100%);
             min-height: 100vh;
             padding: 20px;
@@ -33,7 +33,7 @@
         }
 
         .header h1 {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Gravitas One', serif;
             color: #6b4423;
             font-size: 3rem;
             font-weight: 700;
@@ -57,7 +57,7 @@
         }
 
         .step-title {
-            font-family: 'Cormorant Garamond', serif;
+            font-family: 'Gravitas One', serif;
             font-size: 2.2rem;
             font-weight: 600;
             color: #6b4423;
@@ -86,7 +86,7 @@
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             font-weight: 600;
             display: flex;
@@ -134,7 +134,7 @@
             padding: 15px;
             border: none;
             border-radius: 10px;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
@@ -192,7 +192,7 @@
             padding: 15px;
             border: 2px solid #d4b896;
             border-radius: 10px;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             resize: vertical;
             color: #6b4423;
@@ -214,7 +214,7 @@
             padding: 15px 25px;
             border: none;
             border-radius: 10px;
-            font-family: 'Lato', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
@@ -303,7 +303,7 @@
     <div class="container">
         <div class="header">
             <h1>🍜 Marco Polo Noodle Bar</h1>
-            <div id="poem-container" style="font-family: 'Lato', sans-serif; font-style: italic; color: #6b4423; font-size: 1.05rem; margin-top: 15px; line-height: 1.8; font-weight: 400;">
+            <div id="poem-container" style="font-family: 'Poppins', sans-serif; font-style: italic; color: #6b4423; font-size: 1.05rem; margin-top: 15px; line-height: 1.8; font-weight: 400;">
                 <p id="poem-line-1"></p>
                 <p id="poem-line-2"></p>
             </div>
@@ -316,15 +316,11 @@
 
         <div class="footer">
             <div class="footer-description">
-                <p><strong>Marco Polo Noodle Bar</strong> is a digital celebration of culinary fusion, where Italian and Southeast Asian flavors meet in creative harmony. Inspired by the legendary explorer's journey along the Silk Road, this interactive experience invites you to craft your own unique dish—a delicious blend of tradition and innovation.</p>
+                <p><strong>Marco Polo Noodle Bar</strong> is a digital celebration of culinary unity, where Italian and Southeast Asian flavors mix together. Inspired by the legendary explorer's journey along the Silk Road, we invite you to craft your own unique dish and share it with others on padlet.</p>
             </div>
             <div class="footer-credits">
-                <p><strong>Created by:</strong></p>
-                <p>
-                    <a href="https://author1.com" target="_blank">Author Name 1</a> • 
-                    <a href="https://author2.com" target="_blank">Author Name 2</a> • 
-                    <a href="https://author3.com" target="_blank">Author Name 3</a>
-                </p>
+                <p><strong>Created for World Food Forum (WFF) 2025 by:</strong></p>
+                <p id="author-links"></p>
             </div>
         </div>
     </div>
@@ -333,6 +329,26 @@
         const bases = ['Bolognese', 'Carbonara', 'Coconut curry', 'Garlic butter', 'Oyster', 'Sesame soy', 'Soy', 'Tom yum', 'Tomato', 'Pesto'];
         const noodles = ['Bucketwheat', 'Capelinni', 'Fetucinne', 'Lasagna', 'Linguine', 'Penne', 'Soba', 'Somen', 'Tagliatelle', 'Udon'];
         const toppings = ['Basil', 'Bell peppers', 'Chilli oil', 'Fresh mozarella', 'Lemon wedge and zest', 'Mushrooms', 'Nori', 'Red chilli', 'Scallions', 'Tofu'];
+
+        // Author information - will be shuffled on page load
+        const authors = [
+            { name: 'Egor Zverev', url: 'https://egozverev.github.io/' },
+            { name: 'Archie', url: 'https://www.instagram.com/hrts4augwinnies/' },
+            { name: 'Farrah Dingal', url: 'https://www.linkedin.com/in/farrahdingal/?originalSubdomain=ph' }
+        ];
+
+        // Shuffle function
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        // Shuffle authors on page load
+        const shuffledAuthors = shuffleArray(authors);
 
         let currentStep = 0;
         let selections = {
@@ -532,8 +548,11 @@
                 `;
             } else if (currentStep === 4) {
                 content.innerHTML = `
-                    <h2 class="step-title" style="font-family: 'Cormorant Garamond', serif; color: #6b4423; margin-bottom: 10px;">${dishName}</h2>
+                    <h2 class="step-title" style="font-family: 'Gravitas One', serif; color: #6b4423; margin-bottom: 10px;">${dishName}</h2>
                     ${userNote ? `<p style="text-align: center; color: #6b4423; margin-bottom: 20px; font-style: italic; font-size: 1.05rem;">"${userNote}"</p>` : ''}
+                    <div style="text-align: center; background: #f5e6d3; padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #d4b896;">
+                        <p style="color: #6b4423; font-weight: 600; margin: 0;">📤 Please upload your creation to the event Padlet gallery!</p>
+                    </div>
                     <div id="loading-message" style="text-align: center; padding: 20px;">
                         <p style="color: #666; font-size: 1.1rem;">⏳ Generating your dish...</p>
                     </div>
@@ -541,6 +560,9 @@
                     <div class="action-buttons" id="action-buttons-container" style="opacity: 0; transition: opacity 0.5s;">
                         <button class="action-btn btn-download" onclick="downloadDish()" id="download-btn">
                             ⬇️ Download Image
+                        </button>
+                        <button class="action-btn btn-download" onclick="openPadlet()" id="padlet-btn">
+                            📤 Upload to Padlet
                         </button>
                         <button class="action-btn btn-reset" onclick="reset()">
                             🔄 Create Another
@@ -643,21 +665,21 @@
 
                 // Dish name
                 ctx.fillStyle = '#6b4423';
-                ctx.font = 'bold 52px "Cormorant Garamond", Georgia, serif';
+                ctx.font = 'bold 52px "Gravitas One", Georgia, serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(dishName, canvas.width / 2, currentY);
                 currentY += 60;
 
                 // Author name
                 ctx.fillStyle = '#4a2c16';
-                ctx.font = '36px "Lato", Arial, sans-serif';
+                ctx.font = '36px "Poppins", Arial, sans-serif';
                 ctx.fillText(`by ${authorName}`, canvas.width / 2, currentY);
                 currentY += 50;
 
                 // Story (if exists)
                 if (userNote) {
                     ctx.fillStyle = '#6b4423';
-                    ctx.font = 'italic 26px "Lato", Arial, sans-serif';
+                    ctx.font = 'italic 26px "Poppins", Arial, sans-serif';
                     
                     // Word wrap for story
                     const maxWidth = canvas.width - (padding * 2);
@@ -682,7 +704,7 @@
 
                 // Footer
                 ctx.fillStyle = '#b8956a';
-                ctx.font = '22px "Lato", Arial, sans-serif';
+                ctx.font = '22px "Poppins", Arial, sans-serif';
                 ctx.fillText('🍜 Marco Polo Noodle Bar', canvas.width / 2, canvas.height - 30);
             };
 
@@ -836,6 +858,18 @@
             alert(message);
         }
 
+        function openPadlet() {
+            // You can replace this URL with your actual Padlet link
+            const padletUrl = 'https://padlet.com/farrahdingal/wff-philippines-and-thailands-digital-idea-quilt-eygcv4r2jhbo8h0c';
+            
+            alert('📤 Opening Padlet in a new tab!\n\n' +
+                  '1. First download your image using the "Download Image" button\n' +
+                  '2. Then upload it to the Padlet gallery that will open\n\n' +
+                  'Tip: Keep this page open so you can create more dishes!');
+            
+            window.open(padletUrl, '_blank');
+        }
+
         function reset() {
             currentStep = 0;
             selections = { base: null, noodle: null, toppings: [] };
@@ -846,8 +880,19 @@
             renderStep();
         }
 
+        function renderAuthorLinks() {
+            const authorLinksElement = document.getElementById('author-links');
+            if (authorLinksElement) {
+                const authorHTML = shuffledAuthors
+                    .map(author => `<a href="${author.url}" target="_blank">${author.name}</a>`)
+                    .join(' • ');
+                authorLinksElement.innerHTML = authorHTML;
+            }
+        }
+
         // Initialize
         loadPoem().then(() => {
+            renderAuthorLinks();
             renderStep();
         });
     </script>
