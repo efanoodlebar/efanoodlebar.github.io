@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marco Polo Noodle Bar - Digital Edition</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -30,14 +33,17 @@
         }
 
         .header h1 {
-            color: #2e7d32;
-            font-size: 2.5rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: #6b4423;
+            font-size: 3rem;
+            font-weight: 700;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
         }
 
         .header p {
-            color: #1b5e20;
+            color: #6b4423;
             font-size: 1.1rem;
         }
 
@@ -47,20 +53,23 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             padding: 30px;
             margin-bottom: 20px;
-            border: 3px solid #66bb6a;
+            border: 3px solid #b8956a;
         }
 
         .step-title {
-            font-size: 1.8rem;
-            color: #2e7d32;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #6b4423;
             text-align: center;
             margin-bottom: 20px;
         }
 
         .step-subtitle {
             text-align: center;
-            color: #1b5e20;
+            color: #6b4423;
             margin-bottom: 20px;
+            font-size: 1.05rem;
         }
 
         .options-grid {
@@ -72,11 +81,12 @@
 
         .option-btn {
             padding: 15px;
-            border: 3px solid #a5d6a7;
+            border: 3px solid #d4b896;
             background: white;
             border-radius: 12px;
             cursor: pointer;
             transition: all 0.3s;
+            font-family: 'Lato', sans-serif;
             font-size: 1rem;
             font-weight: 600;
             display: flex;
@@ -87,14 +97,14 @@
         }
 
         .option-btn:hover {
-            border-color: #66bb6a;
+            border-color: #b8956a;
             transform: translateY(-2px);
         }
 
         .option-btn.selected {
-            border-color: #2e7d32;
-            background: #e8f5e9;
-            box-shadow: 0 4px 8px rgba(46, 125, 50, 0.3);
+            border-color: #6b4423;
+            background: #f5e6d3;
+            box-shadow: 0 4px 8px rgba(107, 68, 35, 0.3);
         }
 
         .option-btn.disabled {
@@ -110,7 +120,8 @@
 
         .option-text {
             text-align: center;
-            color: #1b5e20;
+            color: #6b4423;
+            font-size: 0.95rem;
         }
 
         .buttons {
@@ -123,19 +134,21 @@
             padding: 15px;
             border: none;
             border-radius: 10px;
+            font-family: 'Lato', sans-serif;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            letter-spacing: 0.5px;
         }
 
         .btn-primary {
-            background: #43a047;
+            background: #8b6340;
             color: white;
         }
 
         .btn-primary:hover {
-            background: #2e7d32;
+            background: #6b4423;
         }
 
         .btn-primary:disabled {
@@ -144,12 +157,12 @@
         }
 
         .btn-secondary {
-            background: #a5d6a7;
-            color: #1b5e20;
+            background: #d4b896;
+            color: #6b4423;
         }
 
         .btn-secondary:hover {
-            background: #81c784;
+            background: #b8956a;
         }
 
         #result-canvas {
@@ -169,23 +182,25 @@
 
         .input-section label {
             display: block;
-            color: #1b5e20;
-            font-weight: 600;
+            color: #6b4423;
+            font-weight: 700;
             margin-bottom: 8px;
         }
 
         input[type="text"], textarea {
             width: 100%;
             padding: 15px;
-            border: 2px solid #a5d6a7;
+            border: 2px solid #d4b896;
             border-radius: 10px;
+            font-family: 'Lato', sans-serif;
             font-size: 1rem;
             resize: vertical;
+            color: #6b4423;
         }
 
         input[type="text"]:focus, textarea:focus {
             outline: none;
-            border-color: #66bb6a;
+            border-color: #b8956a;
         }
 
         .action-buttons {
@@ -199,31 +214,33 @@
             padding: 15px 25px;
             border: none;
             border-radius: 10px;
+            font-family: 'Lato', sans-serif;
             font-size: 1rem;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            letter-spacing: 0.5px;
         }
 
         .btn-download {
-            background: #2e7d32;
+            background: #6b4423;
             color: white;
         }
 
         .btn-download:hover {
-            background: #1b5e20;
+            background: #4a2c16;
         }
 
         .btn-reset {
-            background: #a5d6a7;
-            color: #1b5e20;
+            background: #d4b896;
+            color: #6b4423;
         }
 
         .btn-reset:hover {
-            background: #81c784;
+            background: #b8956a;
         }
 
         .footer {
@@ -232,23 +249,23 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             padding: 25px;
             margin-top: 30px;
-            border: 3px solid #66bb6a;
+            border: 3px solid #b8956a;
         }
 
         .footer-description {
             text-align: center;
-            color: #1b5e20;
-            font-size: 0.95rem;
-            line-height: 1.6;
+            color: #6b4423;
+            font-size: 1rem;
+            line-height: 1.7;
             margin-bottom: 20px;
         }
 
         .footer-credits {
             text-align: center;
-            color: #666;
-            font-size: 0.85rem;
+            color: #8b6340;
+            font-size: 0.9rem;
             padding-top: 15px;
-            border-top: 2px solid #e8f5e9;
+            border-top: 2px solid #f5e6d3;
         }
 
         .footer-credits p {
@@ -256,20 +273,20 @@
         }
 
         .footer-credits a {
-            color: #2e7d32;
+            color: #6b4423;
             text-decoration: none;
             font-weight: 600;
             transition: color 0.3s;
         }
 
         .footer-credits a:hover {
-            color: #1b5e20;
+            color: #4a2c16;
             text-decoration: underline;
         }
 
         @media (max-width: 600px) {
             .header h1 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .options-grid {
@@ -286,7 +303,7 @@
     <div class="container">
         <div class="header">
             <h1>🍜 Marco Polo Noodle Bar</h1>
-            <div id="poem-container" style="font-style: italic; color: #1b5e20; font-size: 1rem; margin-top: 15px; line-height: 1.6;">
+            <div id="poem-container" style="font-family: 'Lato', sans-serif; font-style: italic; color: #6b4423; font-size: 1.05rem; margin-top: 15px; line-height: 1.8; font-weight: 400;">
                 <p id="poem-line-1"></p>
                 <p id="poem-line-2"></p>
             </div>
@@ -515,8 +532,8 @@
                 `;
             } else if (currentStep === 4) {
                 content.innerHTML = `
-                    <h2 class="step-title" style="color: #2e7d32; margin-bottom: 10px;">${dishName}</h2>
-                    ${userNote ? `<p style="text-align: center; color: #1b5e20; margin-bottom: 20px; font-style: italic;">"${userNote}"</p>` : ''}
+                    <h2 class="step-title" style="font-family: 'Cormorant Garamond', serif; color: #6b4423; margin-bottom: 10px;">${dishName}</h2>
+                    ${userNote ? `<p style="text-align: center; color: #6b4423; margin-bottom: 20px; font-style: italic; font-size: 1.05rem;">"${userNote}"</p>` : ''}
                     <div id="loading-message" style="text-align: center; padding: 20px;">
                         <p style="color: #666; font-size: 1.1rem;">⏳ Generating your dish...</p>
                     </div>
@@ -625,22 +642,22 @@
                 let currentY = textAreaTop;
 
                 // Dish name
-                ctx.fillStyle = '#2e7d32';
-                ctx.font = 'bold 48px "Segoe UI", Arial, sans-serif';
+                ctx.fillStyle = '#6b4423';
+                ctx.font = 'bold 52px "Cormorant Garamond", Georgia, serif';
                 ctx.textAlign = 'center';
                 ctx.fillText(dishName, canvas.width / 2, currentY);
                 currentY += 60;
 
                 // Author name
-                ctx.fillStyle = '#1b5e20';
-                ctx.font = '32px "Segoe UI", Arial, sans-serif';
+                ctx.fillStyle = '#4a2c16';
+                ctx.font = '36px "Lato", Arial, sans-serif';
                 ctx.fillText(`by ${authorName}`, canvas.width / 2, currentY);
                 currentY += 50;
 
                 // Story (if exists)
                 if (userNote) {
-                    ctx.fillStyle = '#555555';
-                    ctx.font = 'italic 24px "Segoe UI", Arial, sans-serif';
+                    ctx.fillStyle = '#6b4423';
+                    ctx.font = 'italic 26px "Lato", Arial, sans-serif';
                     
                     // Word wrap for story
                     const maxWidth = canvas.width - (padding * 2);
@@ -664,8 +681,8 @@
                 }
 
                 // Footer
-                ctx.fillStyle = '#81c784';
-                ctx.font = '20px "Segoe UI", Arial, sans-serif';
+                ctx.fillStyle = '#b8956a';
+                ctx.font = '22px "Lato", Arial, sans-serif';
                 ctx.fillText('🍜 Marco Polo Noodle Bar', canvas.width / 2, canvas.height - 30);
             };
 
