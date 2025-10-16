@@ -284,6 +284,9 @@
             text-decoration: underline;
         }
 
+        .footer-credits #author-links a { display: inline-block; margin: 4px 0; }
+
+
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 2.2rem;
@@ -885,7 +888,7 @@
             if (authorLinksElement) {
                 const authorHTML = shuffledAuthors
                     .map(author => `<a href="${author.url}" target="_blank">${author.name}</a>`)
-                    .join(' • ');
+                    .join('<br>'); // was ' • '
                 authorLinksElement.innerHTML = authorHTML;
             }
         }
